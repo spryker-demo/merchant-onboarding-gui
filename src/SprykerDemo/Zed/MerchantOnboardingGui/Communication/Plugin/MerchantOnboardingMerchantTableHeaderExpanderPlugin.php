@@ -17,11 +17,13 @@ class MerchantOnboardingMerchantTableHeaderExpanderPlugin implements MerchantTab
     public const COL_STATE = 'state';
 
     /**
+     * {@inheritDoc}
+     *
      * @api
      *
      * @return array
      */
-    function expand(): array
+    public function expand(): array
     {
         return [
             static::COL_STATE => 'Onboarding Status',
