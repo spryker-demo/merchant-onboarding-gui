@@ -18,8 +18,6 @@ class MerchantOnboardingMerchantTableDataExpanderPlugin implements MerchantTable
 
     /**
      * {@inheritDoc}
-     * Specification:
-     * - Expands table row data.
      *
      * @api
      *
