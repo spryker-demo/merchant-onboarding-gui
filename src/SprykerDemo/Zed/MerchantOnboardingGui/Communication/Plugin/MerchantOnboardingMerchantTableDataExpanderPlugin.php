@@ -7,9 +7,15 @@
 
 namespace SprykerDemo\Zed\MerchantOnboardingGui\Communication\Plugin;
 
+use Generated\Shared\Transfer\StateMachineItemTransfer;
+use Orm\Zed\Merchant\Persistence\Map\SpyMerchantTableMap;
+use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\MerchantGuiExtension\Dependency\Plugin\MerchantTableDataExpanderPluginInterface;
 
-class MerchantOnboardingMerchantTableDataExpanderPlugin implements MerchantTableDataExpanderPluginInterface
+/**
+ * @method \SprykerDemo\Zed\MerchantOnboardingGui\Communication\MerchantOnboardingGuiCommunicationFactory getFactory()
+ */
+class MerchantOnboardingMerchantTableDataExpanderPlugin extends AbstractPlugin implements MerchantTableDataExpanderPluginInterface
 {
     /**
      * @var string
@@ -28,7 +34,23 @@ class MerchantOnboardingMerchantTableDataExpanderPlugin implements MerchantTable
     public function expand(array $item): array
     {
         return [
-             static::COL_STATE => $item[static::COL_STATE],
+             static::COL_STATE => $this->getStateMachineItemState($item),
         ];
+    }
+
+    /**
+     * @param array $item
+     *
+     * @return string
+     */
+    protected function getStateMachineItemState(array $item): string
+    {
+        $stateMachineItemTransfer = new StateMachineItemTransfer();
+        $stateMachineItemTransfer->setIdItemState($item[SpyMerchantTableMap::COL_FK_STATE_MACHINE_ITEM_STATE]);
+        $stateMachineItemTransfer->setIdentifier($item[SpyMerchantTableMap::COL_FK_STATE_MACHINE_PROCESS]);
+
+        $stateMachineItemTransfer = $this->getFactory()->getStateMachineFacade()->getProcessedStateMachineItemTransfer($stateMachineItemTransfer);
+
+        return $stateMachineItemTransfer->getStateName();
     }
 }
