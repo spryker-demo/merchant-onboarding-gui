@@ -18,6 +18,11 @@ class MerchantOnboardingGuiDependencyProvider extends AbstractBundleDependencyPr
     public const FACADE_STATE_MACHINE = 'FACADE_STATE_MACHINE';
 
     /**
+     * @var string
+     */
+    public const FACADE_MERCHANT = 'FACADE_MERCHANT';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -25,6 +30,7 @@ class MerchantOnboardingGuiDependencyProvider extends AbstractBundleDependencyPr
     public function provideCommunicationLayerDependencies(Container $container): Container
     {
         $container = $this->addStateMachineFacade($container);
+        $container = $this->addMerchantFacade($container);
 
         return $container;
     }
@@ -38,6 +44,20 @@ class MerchantOnboardingGuiDependencyProvider extends AbstractBundleDependencyPr
     {
         $container->set(static::FACADE_STATE_MACHINE, function (Container $container) {
             return $container->getLocator()->stateMachine()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addMerchantFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_MERCHANT, function (Container $container) {
+            return $container->getLocator()->merchant()->facade();
         });
 
         return $container;
