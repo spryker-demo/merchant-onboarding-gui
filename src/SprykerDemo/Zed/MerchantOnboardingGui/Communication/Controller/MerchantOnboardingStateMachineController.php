@@ -9,8 +9,7 @@ namespace SprykerDemo\Zed\MerchantOnboardingGui\Communication\Controller;
 
 use Generated\Shared\Transfer\StateMachineItemTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
-use Spryker\Zed\MerchantGui\MerchantGuiConfig;
-use SprykerDemo\Zed\MerchantOnboardingStateMachine\MerchantOnboardingStateMachineConfig;
+use SprykerDemo\Zed\MerchantOnboardingGui\MerchantOnboardingGuiConfig;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,7 +21,7 @@ class MerchantOnboardingStateMachineController extends AbstractController
     /**
      * @var string
      */
-    public const REQUEST_ID_MERCHANT = 'id-merchant';
+    protected const REQUEST_ID_MERCHANT = 'id-merchant';
 
     /**
      * @var string
@@ -48,11 +47,11 @@ class MerchantOnboardingStateMachineController extends AbstractController
         $this->getFactory()->getStateMachineFacade()->triggerEvent(
             $event,
             (new StateMachineItemTransfer())->setIdentifier($idMerchant)
-                ->setProcessName(MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME)
-                ->setStateMachineName(MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_MACHINE_NAME)
+                ->setProcessName(MerchantOnboardingGuiConfig::PROCESS_NAME)
+                ->setStateMachineName(MerchantOnboardingGuiConfig::STATEMACHINE_NAME)
                 ->setIdItemState($idStateMachineState),
         );
 
-        return $this->redirectResponse($request->headers->get('referer', MerchantGuiConfig::URL_MERCHANT_LIST));
+        return $this->redirectResponse($request->headers->get('referer', static::URL_MERCHANT_LIST));
     }
 }

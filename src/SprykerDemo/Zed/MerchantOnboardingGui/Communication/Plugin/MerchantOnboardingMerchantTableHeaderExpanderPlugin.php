@@ -14,7 +14,7 @@ class MerchantOnboardingMerchantTableHeaderExpanderPlugin implements MerchantTab
     /**
      * @var string
      */
-    public const COL_STATE = 'state';
+    protected const COL_STATE = 'state';
 
     /**
      * {@inheritDoc}

@@ -10,7 +10,7 @@ namespace SprykerDemo\Zed\MerchantOnboardingGui\Communication\Controller;
 use Generated\Shared\Transfer\MerchantCriteriaTransfer;
 use Generated\Shared\Transfer\StateMachineItemTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
-use SprykerDemo\Zed\MerchantOnboardingStateMachine\MerchantOnboardingStateMachineConfig;
+use SprykerDemo\Zed\MerchantOnboardingGui\MerchantOnboardingGuiConfig;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,7 +21,7 @@ class RenderViewController extends AbstractController
     /**
      * @var string
      */
-    public const REQUEST_ID_MERCHANT = 'id-merchant';
+    protected const REQUEST_ID_MERCHANT = 'id-merchant';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -41,8 +41,8 @@ class RenderViewController extends AbstractController
             if ($merchantTransfer->getStateMachineItem()) {
                 $stateMachineManualEvents = $this->getFactory()->getStateMachineFacade()->getManualEventsForStateMachineItem(
                     (new StateMachineItemTransfer())
-                        ->setProcessName(MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME)
-                        ->setStateMachineName(MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_MACHINE_NAME)
+                        ->setProcessName(MerchantOnboardingGuiConfig::PROCESS_NAME)
+                        ->setStateMachineName(MerchantOnboardingGuiConfig::STATEMACHINE_NAME)
                         ->setStateName($merchantTransfer->getStateMachineItem()->getStateName()),
                 );
 

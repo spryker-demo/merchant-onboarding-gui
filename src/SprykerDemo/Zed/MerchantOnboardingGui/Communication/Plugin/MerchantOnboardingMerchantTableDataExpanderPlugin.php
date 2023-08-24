@@ -20,7 +20,7 @@ class MerchantOnboardingMerchantTableDataExpanderPlugin extends AbstractPlugin i
     /**
      * @var string
      */
-    public const COL_STATE = 'state';
+    protected const COL_STATE = 'state';
 
     /**
      * {@inheritDoc}

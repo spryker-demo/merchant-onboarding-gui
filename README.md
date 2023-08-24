@@ -1,6 +1,6 @@
 # Merchant Onboarding Gui module.
 
-{{MerchantOnboardingGui module expands MerchantGui module with merchant onboarding state.}}
+MerchantOnboardingGui module expands MerchantGui module with merchant onboarding state.
 
 ## Installation
 
