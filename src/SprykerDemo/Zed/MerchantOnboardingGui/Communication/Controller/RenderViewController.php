@@ -35,33 +35,35 @@ class RenderViewController extends AbstractController
         $stateHistory = [];
         $stateMachineManualEvents = '';
 
-        if ($merchantTransfer) {
-            $applicableMerchantStatuses = $this->getFactory()->getMerchantFacade()->getApplicableMerchantStatuses($merchantTransfer->getStatus());
-
-            if ($merchantTransfer->getStateMachineItem()) {
-                $stateMachineManualEvents = $this->getFactory()->getStateMachineFacade()->getManualEventsForStateMachineItem(
-                    (new StateMachineItemTransfer())
-                        ->setProcessName(MerchantOnboardingGuiConfig::PROCESS_NAME)
-                        ->setStateMachineName(MerchantOnboardingGuiConfig::STATEMACHINE_NAME)
-                        ->setStateName($merchantTransfer->getStateMachineItem()->getStateName()),
-                );
-
-                $stateHistory = $this->getFactory()->getStateMachineFacade()->getStateHistoryByStateItemIdentifier(
-                    $merchantTransfer->getStateMachineItem()->getIdStateMachineProcess(),
-                    $merchantTransfer->getIdMerchant(),
-                );
-            }
-
-            return $this->viewResponse([
-                'idMerchant' => $idMerchant,
-                'stateHistory' => $stateHistory,
-                'detectedScore' => $merchantTransfer->getDetectedScore(),
-                'stateMachineItemTransfer' => $merchantTransfer->getStateMachineItem(),
-                'stateMachineManualEvents' => $stateMachineManualEvents,
-                'applicableMerchantStatuses' => $applicableMerchantStatuses,
-            ]);
+        if (!$merchantTransfer) {
+            return [];
         }
 
-        return [];
+        $applicableMerchantStatuses = $this->getFactory()->getMerchantFacade()->getApplicableMerchantStatuses($merchantTransfer->getStatus());
+
+        if (!$merchantTransfer->getStateMachineItem()) {
+            return [];
+        }
+
+        $stateMachineManualEvents = $this->getFactory()->getStateMachineFacade()->getManualEventsForStateMachineItem(
+            (new StateMachineItemTransfer())
+                ->setProcessName(MerchantOnboardingGuiConfig::PROCESS_NAME)
+                ->setStateMachineName(MerchantOnboardingGuiConfig::STATEMACHINE_NAME)
+                ->setStateName($merchantTransfer->getStateMachineItem()->getStateName()),
+        );
+
+        $stateHistory = $this->getFactory()->getStateMachineFacade()->getStateHistoryByStateItemIdentifier(
+            $merchantTransfer->getStateMachineItem()->getIdStateMachineProcess(),
+            $merchantTransfer->getIdMerchant(),
+        );
+
+        return $this->viewResponse([
+            'idMerchant' => $idMerchant,
+            'stateHistory' => $stateHistory,
+            'detectedScore' => $merchantTransfer->getDetectedScore(),
+            'stateMachineItemTransfer' => $merchantTransfer->getStateMachineItem(),
+            'stateMachineManualEvents' => $stateMachineManualEvents,
+            'applicableMerchantStatuses' => $applicableMerchantStatuses,
+        ]);
     }
 }
