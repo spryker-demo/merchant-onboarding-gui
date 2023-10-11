@@ -35,15 +35,11 @@ class RenderViewController extends AbstractController
         $stateHistory = [];
         $stateMachineManualEvents = '';
 
-        if (!$merchantTransfer) {
+        if (!$merchantTransfer || !$merchantTransfer->getStateMachineItem()) {
             return [];
         }
 
         $applicableMerchantStatuses = $this->getFactory()->getMerchantFacade()->getApplicableMerchantStatuses($merchantTransfer->getStatus());
-
-        if (!$merchantTransfer->getStateMachineItem()) {
-            return [];
-        }
 
         $stateMachineManualEvents = $this->getFactory()->getStateMachineFacade()->getManualEventsForStateMachineItem(
             (new StateMachineItemTransfer())
