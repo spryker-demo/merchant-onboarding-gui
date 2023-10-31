@@ -52,6 +52,6 @@ class MerchantOnboardingStateMachineController extends AbstractController
                 ->setIdItemState($idStateMachineState),
         );
 
-        return $this->redirectResponse($request->headers->get('referer', MerchantOnboardingGuiConfig::URL_MERCHANT_LIST));
+        return $this->redirectResponse($request->headers->get('referer', RoutingConstants::URL_MERCHANT_LIST));
     }
 }

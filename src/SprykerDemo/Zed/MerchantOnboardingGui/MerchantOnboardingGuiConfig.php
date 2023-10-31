@@ -12,23 +12,16 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class MerchantOnboardingGuiConfig extends AbstractBundleConfig
 {
     /**
-     * @uses {@link \SprykerDemo\Zed\MerchantOnboardingStateMachine\MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME}
+     * @uses {@link \SprykerDemo\Zed\MerchantOnboarding\MerchantOnboardingConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME}
      *
      * @var string
      */
     public const PROCESS_NAME = 'MerchantOnboardingStateMachine';
 
     /**
-     * @uses {@link \SprykerDemo\Zed\MerchantOnboardingStateMachine\MerchantOnboardingStateMachineConfig::MERCHANT_ONBOARDING_STATE_MACHINE_NAME}
+     * @uses {@link \SprykerDemo\Zed\MerchantOnboarding\MerchantOnboardingConfig::MERCHANT_ONBOARDING_STATE_MACHINE_NAME}
      *
      * @var string
      */
     public const STATEMACHINE_NAME = 'MerchantOnboarding';
-
-    /**
-     * @uses {@link \Spryker\Zed\MerchantGui\MerchantGuiConfig::URL_MERCHANT_LIST}
-     *
-     * @var string
-     */
-    public const URL_MERCHANT_LIST = '/merchant-gui/list-merchant';
 }
