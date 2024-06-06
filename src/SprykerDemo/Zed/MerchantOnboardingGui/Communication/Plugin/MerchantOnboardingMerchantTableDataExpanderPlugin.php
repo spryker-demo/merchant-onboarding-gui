@@ -8,9 +8,11 @@
 namespace SprykerDemo\Zed\MerchantOnboardingGui\Communication\Plugin;
 
 use Generated\Shared\Transfer\StateMachineItemTransfer;
+use Generated\Shared\Transfer\StateMachineProcessTransfer;
 use Orm\Zed\Merchant\Persistence\Map\SpyMerchantTableMap;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\MerchantGuiExtension\Dependency\Plugin\MerchantTableDataExpanderPluginInterface;
+use SprykerDemo\Zed\MerchantOnboarding\MerchantOnboardingConfig;
 
 /**
  * @method \SprykerDemo\Zed\MerchantOnboardingGui\Communication\MerchantOnboardingGuiCommunicationFactory getFactory()
@@ -47,7 +49,9 @@ class MerchantOnboardingMerchantTableDataExpanderPlugin extends AbstractPlugin i
     {
         $stateMachineItemTransfer = new StateMachineItemTransfer();
         $stateMachineItemTransfer->setIdItemState($item[SpyMerchantTableMap::COL_FK_STATE_MACHINE_ITEM_STATE]);
-        $stateMachineItemTransfer->setIdentifier($item[SpyMerchantTableMap::COL_FK_STATE_MACHINE_PROCESS]);
+        $stateMachineItemTransfer->setIdentifier($this->getFactory()->getStateMachineFacade()->getStateMachineProcessId(
+            (new StateMachineProcessTransfer())->setProcessName(MerchantOnboardingConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME)
+        ));
 
         $stateMachineItemTransfer = $this->getFactory()->getStateMachineFacade()->getProcessedStateMachineItemTransfer($stateMachineItemTransfer);
 
