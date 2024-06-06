@@ -50,7 +50,7 @@ class MerchantOnboardingMerchantTableDataExpanderPlugin extends AbstractPlugin i
         $stateMachineItemTransfer = new StateMachineItemTransfer();
         $stateMachineItemTransfer->setIdItemState($item[SpyMerchantTableMap::COL_FK_STATE_MACHINE_ITEM_STATE]);
         $stateMachineItemTransfer->setIdentifier($this->getFactory()->getStateMachineFacade()->getStateMachineProcessId(
-            (new StateMachineProcessTransfer())->setProcessName(MerchantOnboardingConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME)
+            (new StateMachineProcessTransfer())->setProcessName(MerchantOnboardingConfig::MERCHANT_ONBOARDING_STATE_PROCESS_NAME),
         ));
 
         $stateMachineItemTransfer = $this->getFactory()->getStateMachineFacade()->getProcessedStateMachineItemTransfer($stateMachineItemTransfer);
